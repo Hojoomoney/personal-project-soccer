@@ -2,6 +2,7 @@ package com.rod.api.user;
 
 import com.rod.api.enums.Messenger;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,14 +14,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequiredArgsConstructor
+@ToString
 public class UserController {
     private final UserService userService;
-
-    @PostMapping("/login")
-    public Map<String, ?> username(@RequestBody Map<String, ?> map){
+    private final UserRepository userRepository;
+    @PostMapping("/api/login")
+    public Map<String, ?> login(@RequestBody Map<String, ?> map){
        String username = (String) map.get("username");
        String password = (String) map.get("password");
        System.out.println("리퀘스트가 가져온 이름 : " + username);
@@ -31,29 +33,20 @@ public class UserController {
        return respMap;
     }
 
-    public Messenger join(Scanner sc) throws SQLException {
-        System.out.println("ID, 비번, 이름, 전화번호, 직업, 키, 몸무게를 순서대로 입력하세요.");
-        userService.save(User.builder()
-                .username(sc.next())
-                .password(sc.next())
-                .name(sc.next())
-                .phone(sc.next())
-                .job(sc.next())
-                .height(sc.next())
-                .weight(sc.next())
+    @PostMapping(path = "/api/users")
+    public Map<String, ?> join(@RequestBody Map<?, ?> map){
+        Map<String, Messenger> respMap = new HashMap<>();
+        User user = userRepository.save(User.builder()
+                .username((String) map.get("username"))
+                .password((String) map.get("password"))
+                .email((String) map.get("email"))
+                .name((String) map.get("name"))
+                .phone((String) map.get("phone"))
+                .job((String) map.get("job"))
                 .build());
-        return Messenger.SUCCESS;
+        System.out.println("DB 에 저장된 User 정보 : " + user);
+        respMap.put("result", Messenger.SUCCESS);
+        return respMap;
     }
 
-    public Messenger createMemberTable() throws SQLException {
-        return userService.createMemberTable();
-    }
-
-    public String deleteMemberTable() throws SQLException {
-        return userService.deleteMemberTable();
-    }
-
-    public List<User> findAll() throws SQLException {
-        return userService.findAll();
-    }
 }

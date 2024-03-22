@@ -18,7 +18,7 @@ export default function Login() {
 
     const handleSubmit = () => {
         alert('리퀘스트가 가져가는 이름 : ' + username + password)
-        const url = `${SERVER}/login`
+        const url = `${SERVER}/api/login`
         const data = {username, password}
         const config = {
             headers:{
@@ -40,7 +40,6 @@ export default function Login() {
         <h5>비밀번호</h5>
         <input type="text" onChange={handleChangePassword}/>
         <button onClick={handleSubmit}>확인</button> <br/><br/>
-        <Link href={"/join"}>회원가입</Link>
     </>
     )
 }

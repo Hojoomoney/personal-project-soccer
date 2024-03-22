@@ -35,7 +35,8 @@ export default function Home() {
     <h3>당신의 이름은 ?</h3>
     <input type="text" onChange={handleChange}/> <br/>
     <button onClick={handleClick}>전송</button> <br/><br/>
-    <Link href={"/login"} >로그인</Link>
+    <Link href={"/login"} >로그인</Link> <br/>
+    <Link href={"/join"}>회원가입</Link>
     </>
   );
 }
