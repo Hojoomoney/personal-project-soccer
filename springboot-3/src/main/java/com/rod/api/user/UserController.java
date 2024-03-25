@@ -23,14 +23,18 @@ public class UserController {
     private final UserRepository userRepository;
     @PostMapping("/api/login")
     public Map<String, ?> login(@RequestBody Map<String, ?> map){
-       String username = (String) map.get("username");
-       String password = (String) map.get("password");
-       System.out.println("리퀘스트가 가져온 이름 : " + username);
-       System.out.println("리퀘스트가 가져온 비밀번호 : " + password);
-       Map<String, String> respMap = new HashMap<>();
-       respMap.put("username", username);
-       respMap.put("password", password);
-       return respMap;
+        Map<String, Messenger> respMap = new HashMap<>();
+        String username = (String) map.get("username");
+        String password = (String) map.get("password");
+        User optUser = userRepository.findByUsername(username).orElse(null);
+        if(optUser == null){
+            respMap.put("message", Messenger.FAIL);
+        } else if(!password.equals(optUser.getPassword())){
+            respMap.put("message", Messenger.WRONG_PASSWORD);
+        } else {
+            respMap.put("message", Messenger.SUCCESS);
+        }
+        return respMap;
     }
 
     @PostMapping(path = "/api/users")
@@ -45,7 +49,7 @@ public class UserController {
                 .job((String) map.get("job"))
                 .build());
         System.out.println("DB 에 저장된 User 정보 : " + user);
-        respMap.put("result", Messenger.SUCCESS);
+        respMap.put("message", Messenger.SUCCESS);
         return respMap;
     }
 
