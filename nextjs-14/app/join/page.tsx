@@ -46,7 +46,7 @@ export default function Join() {
             }}
         axios.post(url, data, config)
         .then(res => {
-            alert(JSON.stringify(res.data.result))
+            alert(JSON.stringify(res.data.message))
             router.push("/login")
         })
     }

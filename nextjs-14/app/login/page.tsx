@@ -29,7 +29,8 @@ export default function Login() {
             }}
         axios.post(url,data,config)
         .then(res => {
-            alert('리스폰스가 가져온 이름 : ' + JSON.stringify(res.data))
+            const message = res.data.message
+            alert(JSON.stringify(message))
         })
     }
 
