@@ -31,6 +31,7 @@ export default function Login() {
         .then(res => {
             const message = res.data.message
             alert(JSON.stringify(message))
+            
         })
     }
 

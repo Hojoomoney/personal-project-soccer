@@ -1,7 +1,10 @@
 package com.rod.api.user;
 
+import com.rod.api.order.Order;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity(name="users")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -25,7 +28,8 @@ public class User {
     @Column
     private String job;
 
-
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
 
     @Builder(builderMethodName = "builder")
     public User(String username, String password, String name, String phone, String email, String job) {
