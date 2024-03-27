@@ -1,42 +1,49 @@
-'use client';
-import Image from "next/image";
-import { useState } from "react";
+'use client'
+import { useState } from "react"
 import axios from 'axios';
 import Link from "next/link";
+import "./globals.css";
+import { Button, Input } from "@mui/material";
+
 const SERVER = 'http://localhost:8080'
-// PAGE SCOPE
 export default function Home() {
-
   const [name, setName] = useState('')
-
-  const handleChange = (e:any) => {
+  const handleChange = (e: any) => {
     setName(e.target.value)
   }
 
   const handleClick = () => {
     alert('리퀘스트가 가져가는 이름 : ' + name)
     const url = `${SERVER}/name`
-    const data = {name : name}
+    const data = { 'name': name }
     const config = {
-      headers:{
+      headers: {
         "Cache-Control": "no-cache",
         "Content-Type": "application/json",
-         Authorization: `Bearer blah ~` ,
+        Authorization: `Bearer blah ~`,
         "Access-Control-Allow-Origin": "*",
-    }}
-    axios.post(url,data,config)
-    .then(res => {
-      alert('리스폰스가 가져온 이름 : ' + JSON.stringify(res.data))
-    })
+      }
+    }
+    axios.post(url, data, config)
+      .then(res => {
+        alert('alert : ' + JSON.stringify(res.data))
+        console.log('console : ' + JSON.stringify(res.data))
+      }
+      )
+
   }
 
-  return (<>
-    <div>Welcome to React!</div>
-    <h3>당신의 이름은 ?</h3>
-    <input type="text" onChange={handleChange}/> <br/>
-    <button onClick={handleClick}>전송</button> <br/><br/>
-    <Link href={"/login"} >로그인</Link> <br/>
-    <Link href={"/join"}>회원가입</Link>
-    </>
-  );
+  return (
+    <div className='text-center'>
+      <div>welcom to react world !</div><br />
+      <span className='text-red-500'>이름 입력</span>
+      <Input type="text" onChange={handleChange} />
+      <Button variant="outlined" onClick={handleClick}>전 송</Button><br /><br />
+      <Link href={"/login"} >로그인</Link><br />
+      <Link href={"/join"}>회원가입</Link><br />
+      <Link href={"/mui-demo"}>MUI 데모</Link>
+    </div>
+  )
+
+
 }

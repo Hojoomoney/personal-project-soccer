@@ -1,21 +1,21 @@
 'use client';
 import axios from "axios";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 const SERVER = 'http://localhost:8080'
 
-export default function Login() {
+export default function Login() { //component
 
     const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
+    const [password, setPassword] = useState('') //hook
     
     const handleChangeUsername = (e:any) => {
         setUsername(e.target.value)
     }
-    const handleChangePassword = (e:any) => {
+    const handleChangePassword = (e:any) => { //eventhandler
         setPassword(e.target.value)
     }
-
+    const router = useRouter();
     const handleSubmit = () => {
         alert('리퀘스트가 가져가는 이름 : ' + username + password)
         const url = `${SERVER}/api/login`
@@ -30,8 +30,14 @@ export default function Login() {
         axios.post(url,data,config)
         .then(res => {
             const message = res.data.message
-            alert(JSON.stringify(message))
-            
+            alert(message)
+            if(message==='SUCCESS'){
+                router.push('/articles')
+            }else if (message==='FAIL'){
+                alert("Fail")
+            }else{
+                alert("지정되지 않은 값")
+            }
         })
     }
 
