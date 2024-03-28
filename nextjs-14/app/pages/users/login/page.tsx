@@ -1,8 +1,10 @@
 'use client';
+import { API } from "@/app/atoms/enums/API";
+import { PG } from "@/app/atoms/enums/PG";
+import AxiosConfig from "@/app/organisms/configs/axios-config";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-const SERVER = 'http://localhost:8080'
 
 export default function Login() { //component
 
@@ -18,21 +20,12 @@ export default function Login() { //component
     const router = useRouter();
     const handleSubmit = () => {
         alert('리퀘스트가 가져가는 이름 : ' + username + password)
-        const url = `${SERVER}/api/login`
-        const data = {username, password}
-        const config = {
-            headers:{
-                "Cache-Control": "no-cache",
-                "Content-Type": "application/json",
-                Authorization: `Bearer blah ~` ,
-                "Access-Control-Allow-Origin": "*",
-            }}
-        axios.post(url,data,config)
+        axios.post(`${API.SERVER}/login`,{username, password},AxiosConfig())
         .then(res => {
             const message = res.data.message
             alert(message)
             if(message==='SUCCESS'){
-                router.push('/articles')
+                router.push(`${PG.BOARD}/articles`)
             }else if (message==='FAIL'){
                 alert("Fail")
             }else{

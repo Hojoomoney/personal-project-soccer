@@ -8,6 +8,8 @@ import java.util.List;
 
 @Entity(name="boards")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 @Getter
 @ToString
 public class Board {
@@ -16,18 +18,10 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
     private String boardName;
-
-    @Column
     private String boardType;
 
     @OneToMany(mappedBy ="board")
     private List<Article> articles;
 
-    @Builder(builderMethodName = "builder")
-    public Board(String boardName, String boardType) {
-        this.boardName = boardName;
-        this.boardType = boardType;
-    }
 }
