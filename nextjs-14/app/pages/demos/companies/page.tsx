@@ -1,7 +1,8 @@
 import CompanyColumns from "@/app/organisms/columns/company-columns";
 import CompanyRows from "@/app/organisms/rows/company-rows";
+import { NextPage } from "next";
 
-export default function Companies() {
+const CompanyPage : NextPage = () => {
     
     const companyMap = CompanyRows().map((v) => (
         <CompanyColumns {...v}/> 
@@ -23,3 +24,5 @@ export default function Companies() {
 </table>
     </>)
 }
+
+export default CompanyPage;

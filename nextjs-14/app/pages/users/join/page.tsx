@@ -3,12 +3,13 @@
 import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { API } from "@/app/atoms/enums/API";
-import AxiosConfig from "@/app/organisms/configs/axios-config";
-import { PG } from "@/app/atoms/enums/PG";
+import { API } from "@/redux/common/enums/API";
+import AxiosConfig from "@/redux/common/configs/axios-config";
+import { PG } from "@/redux/common/enums/PG";
+import { NextPage } from "next";
 const SERVER = 'http://localhost:8080'
 
-export default function Join() {
+const JoinPage : NextPage = () => {
     
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -84,3 +85,5 @@ export default function Join() {
     )
 
 }
+
+export default JoinPage;

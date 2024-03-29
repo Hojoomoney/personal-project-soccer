@@ -5,12 +5,13 @@ import Box from '@mui/material/Box';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import MuiDemoRows from '@/app/organisms/rows/mui-demo-rows';
 import MuiDemoColumn from '@/app/organisms/columns/mui-demo-columns';
+import { NextPage } from 'next';
 
 // const columns: GridColDef[] = 
 
 
 
-export default function DataGridDemo() {
+const DataGridPage : NextPage = () => {
   return (
     <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid
@@ -31,4 +32,4 @@ export default function DataGridDemo() {
   );
 }
 
-export function Test(){}
+export default DataGridPage;
