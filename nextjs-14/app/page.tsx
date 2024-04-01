@@ -37,7 +37,8 @@ export default function Home() {
       <Link href={`${PG.DEMO}/companies`}>회사 목록</Link><br />
       <Link href={`${PG.DEMO}/counter`}>카운터 데모</Link><br />
       <Link href={`${PG.DEMO}/redux-counter`}>리덕스 카운터 데모</Link><br />
-      <Link href={`${PG.BOARD}/articles`}>전체 글 목록</Link>
+      <Link href={`${PG.BOARD}/articles`}>전체 글 목록</Link><br />
+      <Link href={`${PG.USER}/userList`}>사용자 목록</Link>
     </div>
   )
 
